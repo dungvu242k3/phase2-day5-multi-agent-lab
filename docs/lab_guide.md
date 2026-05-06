@@ -69,6 +69,12 @@ Benchmark tối thiểu:
 | Citation coverage | số claims có source / tổng claims chính |
 | Failure rate | số query fail / tổng query |
 
+Gợi ý để benchmark rõ hơn:
+
+- Dùng một local corpus cố định cho cả baseline và multi-agent.
+- Cho baseline đọc raw context một lần, còn multi-agent phải tự tách retrieval -> analysis -> writing.
+- Dùng cả metric tự động lẫn rubric review để thấy tradeoff quality / latency / cost rõ hơn.
+
 ## Exit ticket
 
 Mỗi nhóm trả lời 2 câu:
