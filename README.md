@@ -81,23 +81,31 @@ make test
 python -m multi_agent_research_lab.cli --help
 ```
 
-### 4. Chạy baseline skeleton
+### 4. Chạy baseline
 
 ```bash
 python -m multi_agent_research_lab.cli baseline \
   --query "Research GraphRAG state-of-the-art and write a 500-word summary"
 ```
 
-Lệnh này chỉ chạy khung baseline tối giản. Học viên cần tự triển khai logic LLM thực tế trong `src/multi_agent_research_lab/services/llm_client.py`.
+Lệnh này chạy single-agent baseline: một agent đọc input và trả lời trong một lần gọi LLM.
 
-### 5. Chạy multi-agent skeleton
+### 5. Chạy multi-agent
 
 ```bash
 python -m multi_agent_research_lab.cli multi-agent \
   --query "Research GraphRAG state-of-the-art and write a 500-word summary"
 ```
 
-Mặc định lệnh sẽ báo các `TODO` cần làm. Đây là chủ đích của starter repo.
+Lệnh này chạy workflow `Supervisor -> Researcher -> Analyst -> Writer` với shared state và trace.
+
+### 6. Chạy controlled benchmark
+
+```bash
+python -m multi_agent_research_lab.cli benchmark --config configs/lab_default.yaml
+```
+
+Benchmark mặc định dùng local corpus cố định trong repo để so sánh baseline vs multi-agent theo quality, latency, cost, citation coverage, failure rate và các metric quality-oriented khác.
 
 ## Milestones trong 2 giờ lab
 
@@ -136,7 +144,7 @@ Các phần học viên cần tự làm:
 4. Implement từng worker agent.
 5. Build LangGraph workflow.
 6. Thêm tracing provider thật: LangSmith, Langfuse hoặc OpenTelemetry.
-7. Viết benchmark report.
+7. Viết benchmark report và giải thích tradeoff baseline vs multi-agent.
 
 ## Deliverables
 
