@@ -1,0 +1,243 @@
+documents:
+  - document_id: graphrag_overview
+    title: GraphRAG Overview
+    url: https://example.com/graphrag-overview
+    content: >
+      GraphRAG combines graph-structured retrieval with generation so that the model can ground
+      answers in entity and relationship evidence. It is especially useful for multi-hop questions
+      where plain chunk retrieval misses connections across documents.
+    metadata:
+      topic: graphrag
+      is_distractor: false
+  - document_id: graphrag_benchmarks
+    title: GraphRAG Benchmarks
+    url: https://example.com/graphrag-benchmarks
+    content: >
+      Reported evaluations show GraphRAG often improves answer quality on relationship-heavy and
+      enterprise knowledge tasks, but gains depend on retrieval quality and graph freshness.
+      Teams still need benchmark design that checks grounding, completeness, and citation use.
+    metadata:
+      topic: graphrag
+      is_distractor: false
+  - document_id: graphrag_limitations
+    title: GraphRAG Limitations
+    url: https://example.com/graphrag-limitations
+    content: >
+      Key limitations include graph construction cost, graph maintenance overhead, and evaluation
+      complexity. Benefits are strongest when the domain contains rich relationships; otherwise the
+      graph may add latency without large quality gains.
+    metadata:
+      topic: graphrag
+      is_distractor: false
+  - document_id: customer_support_playbook
+    title: Customer Support Playbook
+    url: https://example.com/customer-support-playbook
+    content: >
+      Customer support teams use role separation to triage tickets, collect evidence, and draft
+      responses. Multi-agent systems can mirror this by separating retrieval, analysis, and final
+      response generation for escalations and policy-heavy cases.
+    metadata:
+      topic: customer_support
+      is_distractor: false
+  - document_id: customer_support_tradeoffs
+    title: Customer Support Tradeoffs
+    url: https://example.com/customer-support-tradeoffs
+    content: >
+      Single-agent workflows are faster and cheaper for routine tickets. Multi-agent workflows add
+      latency and cost but can improve policy compliance, traceability, and failure analysis on
+      ambiguous cases with many constraints.
+    metadata:
+      topic: customer_support
+      is_distractor: false
+  - document_id: customer_support_failure_modes
+    title: Customer Support Failure Modes
+    url: https://example.com/customer-support-failure-modes
+    content: >
+      Common failure modes include policy drift, missing citations, and escalation decisions made
+      without enough evidence. Good systems expose trace data so reviewers can see who did what and
+      where mistakes happened.
+    metadata:
+      topic: customer_support
+      is_distractor: false
+  - document_id: guardrails_checklist
+    title: Guardrails Checklist
+    url: https://example.com/guardrails-checklist
+    content: >
+      Production guardrails for LLM agents usually include max iterations, timeout, retry,
+      validation, and fallback behavior. These controls limit runaway loops and make failures easier
+      to reason about.
+    metadata:
+      topic: guardrails
+      is_distractor: false
+  - document_id: guardrails_tracing
+    title: Trace and Benchmarking Notes
+    url: https://example.com/trace-benchmarking-notes
+    content: >
+      Teams should benchmark latency, cost, quality, citation coverage, and failure rate instead of
+      relying on a nice-looking demo. Trace logs should explain agent actions, token usage, and
+      failure points.
+    metadata:
+      topic: guardrails
+      is_distractor: false
+  - document_id: guardrails_rollout
+    title: Rollout Guardrails
+    url: https://example.com/rollout-guardrails
+    content: >
+      A strong rollout includes validation before final output, explicit fallback when retrieval
+      fails, and review artifacts for peer feedback. Guardrails matter most when tasks are complex
+      or high stakes.
+    metadata:
+      topic: guardrails
+      is_distractor: false
+  - document_id: gpu_cluster_notes
+    title: GPU Cluster Notes
+    url: https://example.com/gpu-cluster-notes
+    content: >
+      GPU cluster scheduling focuses on memory fragmentation, batch sizing, and CUDA driver
+      compatibility. This document is unrelated to the benchmark tasks and exists as a distractor.
+    metadata:
+      topic: infrastructure
+      is_distractor: true
+  - document_id: quarterly_sales_report
+    title: Quarterly Sales Report
+    url: https://example.com/quarterly-sales-report
+    content: >
+      The sales report covers revenue growth, pricing promotions, and regional pipeline forecasts.
+      It is intentionally irrelevant to the benchmark tasks and should not be cited.
+    metadata:
+      topic: finance
+      is_distractor: true
+cases:
+  - case_id: graphrag_state_of_the_art
+    query: Research GraphRAG state-of-the-art and write a 500-word summary
+    audience: technical learners
+    candidate_document_ids:
+      - graphrag_overview
+      - graphrag_benchmarks
+      - graphrag_limitations
+      - gpu_cluster_notes
+    expectation:
+      required_facts:
+        - fact_id: graphrag_grounding
+          description: GraphRAG grounds generation with graph-aware retrieval.
+          keywords:
+            - graphrag
+            - retrieval
+            - graph
+            - ground
+        - fact_id: graphrag_multihop
+          description: GraphRAG is helpful for multi-hop or relationship-heavy questions.
+          keywords:
+            - multi-hop
+            - relationship
+            - enterprise
+        - fact_id: graphrag_limitations
+          description: GraphRAG has costs around graph construction or maintenance.
+          keywords:
+            - construction
+            - maintenance
+            - latency
+      expected_source_ids:
+        - graphrag_overview
+        - graphrag_benchmarks
+        - graphrag_limitations
+      forbidden_phrases:
+        - cuda
+        - gpu cluster
+        - memory fragmentation
+      required_sections:
+        - Summary
+        - Sources
+      rubric_focus:
+        - Explain both benefits and limitations.
+        - Keep the answer grounded in benchmark sources.
+  - case_id: customer_support_workflows
+    query: Compare single-agent and multi-agent workflows for customer support
+    audience: technical learners
+    candidate_document_ids:
+      - customer_support_playbook
+      - customer_support_tradeoffs
+      - customer_support_failure_modes
+      - quarterly_sales_report
+    expectation:
+      required_facts:
+        - fact_id: support_single_agent
+          description: Single-agent workflows are faster or cheaper for routine tickets.
+          keywords:
+            - single-agent
+            - faster
+            - cheaper
+        - fact_id: support_multi_agent
+          description: Multi-agent workflows improve traceability or policy compliance on complex cases.
+          keywords:
+            - multi-agent
+            - traceability
+            - policy
+        - fact_id: support_failure_mode
+          description: Good evaluation should mention failure modes or escalation evidence.
+          keywords:
+            - failure
+            - escalation
+            - evidence
+      expected_source_ids:
+        - customer_support_playbook
+        - customer_support_tradeoffs
+        - customer_support_failure_modes
+      forbidden_phrases:
+        - revenue growth
+        - pipeline forecast
+        - pricing promotions
+      required_sections:
+        - Comparison
+        - Recommendation
+        - Sources
+      rubric_focus:
+        - Highlight tradeoffs rather than claiming one approach always wins.
+        - Mention at least one failure mode.
+  - case_id: llm_guardrails_summary
+    query: Summarize production guardrails for LLM agents
+    audience: technical learners
+    candidate_document_ids:
+      - guardrails_checklist
+      - guardrails_tracing
+      - guardrails_rollout
+      - quarterly_sales_report
+    expectation:
+      required_facts:
+        - fact_id: guardrails_core
+          description: Core guardrails include max iterations, timeout, retry, validation, and fallback.
+          keywords:
+            - max iterations
+            - timeout
+            - retry
+            - validation
+            - fallback
+        - fact_id: guardrails_benchmark
+          description: Teams should benchmark latency, cost, quality, citation coverage, and failure rate.
+          keywords:
+            - latency
+            - cost
+            - quality
+            - citation
+            - failure rate
+        - fact_id: guardrails_trace
+          description: Trace data should explain agent actions and failure points.
+          keywords:
+            - trace
+            - actions
+            - failure
+      expected_source_ids:
+        - guardrails_checklist
+        - guardrails_tracing
+        - guardrails_rollout
+      forbidden_phrases:
+        - revenue growth
+        - regional pipeline
+        - sales report
+      required_sections:
+        - Summary
+        - Guardrails
+        - Sources
+      rubric_focus:
+        - Connect guardrails to operational reliability.
+        - Mention both prevention and review artifacts.
