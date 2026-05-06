@@ -6,6 +6,7 @@ Langfuse, OpenTelemetry, or simple JSON traces.
 
 from collections.abc import Iterator
 from contextlib import contextmanager
+from datetime import UTC, datetime
 from time import perf_counter
 from typing import Any
 
@@ -18,7 +19,12 @@ def trace_span(name: str, attributes: dict[str, Any] | None = None) -> Iterator[
     """
 
     started = perf_counter()
-    span: dict[str, Any] = {"name": name, "attributes": attributes or {}, "duration_seconds": None}
+    span: dict[str, Any] = {
+        "name": name,
+        "attributes": attributes or {},
+        "started_at": datetime.now(UTC).isoformat(),
+        "duration_seconds": None,
+    }
     try:
         yield span
     finally:
